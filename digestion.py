@@ -9,6 +9,7 @@ from tkinter import *
 from methods import *
 
 totalpatterns = np.empty(10, dtype = str);
+totallist = []
 
 class digestion:
     def __init__(self, root):
@@ -95,9 +96,8 @@ class digestion:
         totalpatterns = np.unique(np.concatenate((origPat, treatPat), axis=None))
         print(totalpatterns)
         
-        create_window()
-        
-        print(totallist)
+        labelpatterns()
+
         
     def automatic(self):
         originalpath = self.file2.get()
@@ -124,45 +124,68 @@ root.title("Digestion")
 root.geometry=("500x250")
 root.config(background="white")
 
-def create_window():
+def labelpatterns():
     global totalpatterns
     window = Toplevel()
         
     window.title("Assign patterns")
-    
-    labelorigin = Label(window, text = "Origin").pack()
     optionList = tuple(totalpatterns)
+        
+    labelorigin = Label(window, text = "Origin")
+    labelorigin.grid(column=0, row=0)
+    
+
     origin = StringVar()
     origin.set(optionList[0])
-    om1 = OptionMenu(window, origin, *optionList).pack()
+    om1 = OptionMenu(window, origin, *optionList)
+    om1.grid(column=1, row=0)
     
-    labelorigin = Label(window, text = "Terminated").pack()
+    labelterminated = Label(window, text = "Terminated")
+    labelterminated.grid(column=0, row=1)
+    
     terminated = StringVar()
     terminated.set(optionList[0])
-    om2 = OptionMenu(window, terminated, *optionList).pack()
+    om2 = OptionMenu(window, terminated, *optionList)
+    om2.grid(column=1, row=1)
     
-    labelorigin = Label(window, text = "Ongoing").pack()
+    labelongoing = Label(window, text = "Ongoing")
+    labelongoing.grid(column=0, row=2)
+    
     ongoing = StringVar()
     ongoing.set(optionList[0])
-    om3 = OptionMenu(window, ongoing, *optionList).pack()
+    om3 = OptionMenu(window, ongoing, *optionList)
+    om3.grid(column=1, row=2)
     
-    labelorigin = Label(window, text = "Diverged").pack()
+    labeldiverged = Label(window, text = "Diverged")
+    labeldiverged.grid(column=0, row= 3)
+    
     diverged = StringVar()
     diverged.set(optionList[0])
-    om4 = OptionMenu(window, diverged, *optionList).pack()
+    om4 = OptionMenu(window, diverged, *optionList)
+    om4.grid(column=1, row=3)
     
-    labelorigin = Label(window, text = "Converged").pack()
+    labelconverged = Label(window, text = "Converged")
+    labelconverged.grid(column=0, row=4)
+    
     converged = StringVar()
     converged.set(optionList[0])
-    om5 = OptionMenu(window, converged, *optionList).pack()
+    om5 = OptionMenu(window, converged, *optionList)
+    om5.grid(column=1, row=4)
     
-    confirm = Button(window, text= 'Confirm and Exit', command = save_results).pack()
+    confirm = Button(window, text= 'Save', command = lambda: save_results(origin.get(),
+                                                                          terminated.get(),
+                                                                          ongoing.get(),
+                                                                          diverged.get(),
+                                                                          converged.get()))
+    confirm.grid(columnspan=2, column=0, row=5)
     
-def save_results(self):
+    exitbutton = Button(window, text= 'Exit', command = window.destroy)
+    exitbutton.grid(columnspan=2, column=0, row=6)
+    
+def save_results(origin, terminated, ongoing, diverged, converged):
+    global totallist
     totallist = [origin, terminated, ongoing, diverged, converged]
-    print(totallist)
-    window.destroy()
-    
+
 d = digestion(root)
 
 root.mainloop()
