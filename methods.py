@@ -45,4 +45,16 @@ def ecdf(data):
     y = np.arange(1, n+1) / n
     return(x,y)
 
-def manualLin
+def compare(data1, data2):
+    
+    data1Origin
+    data1Terminated
+    data1Ongoing
+    data1Diverged
+    data1Converged
+    
+    data2Origin
+    data2Terminated
+    data2Ongoing
+    data2Diverged
+    data2Converged

@@ -7,6 +7,7 @@ Created on Sun Apr 18 18:59:52 2021
 
 from tkinter import *
 from methods import *
+from auto import *
 
 totalpatterns = np.empty(10, dtype = str);
 totallist = []
@@ -100,10 +101,10 @@ class digestion:
 
         
     def automatic(self):
-        originalpath = self.file2.get()
-        treatmentpath = self.file1.get()
+        window= Toplevel()
+        a = auto(origPat, treatPat, totallist, window)
         
-        
+            
     def manual(self):
         originalpath = self.file2.get()
         treatmentpath = self.file1.get()
@@ -186,7 +187,7 @@ def save_results(origin, terminated, ongoing, diverged, converged):
     global totallist
     totallist = [origin, terminated, ongoing, diverged, converged]
 
-d = digestion(root)
+d = digestion(root) 
 
 root.mainloop()
 
