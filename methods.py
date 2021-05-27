@@ -34,7 +34,7 @@ def simplify(df):
     eachpattern = [];
     
     for pattern in patterns: #Sorted:
-        eachpattern.append(df[df[0] == pattern])
+        eachpattern.append(df[df[0] == pattern].dropna(how='all'))
     
     return patterns, eachpattern
 
@@ -45,6 +45,12 @@ def ecdf(data):
     y = np.arange(1, n+1) / n
     return(x,y)
 
+def rename(data, patterns):
+    order = ["origin", "terminated", "ongoing", "diverged", "converged"]
+    for patternIndex in len(patterns):    
+        data[data[1]==patterns[patternIndex]] = patternIndex[order]
+    data[data[1].isin(order)]
+    
 def compare(data1, data2):
     
     data1Origin
