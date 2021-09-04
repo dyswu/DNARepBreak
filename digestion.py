@@ -6,7 +6,10 @@ Created on Sun Apr 18 18:59:52 2021
 """
 
 from tkinter import *
+from tkinter import filedialog
+
 from methods import *
+from auto import *
 
 totalpatterns = np.empty(10, dtype = str);
 totallist = []
@@ -93,17 +96,18 @@ class digestion:
         origPat, origSep = simplify(dfOrig)
         treatPat, treatSep= simplify(dfTreat)
         
-        totalpatterns = np.unique(np.concatenate((origPat, treatPat), axis=None))
-        print(totalpatterns)
+        print(origSep)
         
+        totalpatterns = np.unique(np.concatenate((origPat, treatPat), axis=None))
+
         labelpatterns()
 
-        
+        print(totallist)
     def automatic(self):
-        originalpath = self.file2.get()
-        treatmentpath = self.file1.get()
+        window= Toplevel()
+        a = auto(origPat, treatPat, totallist, window)
         
-        
+            
     def manual(self):
         originalpath = self.file2.get()
         treatmentpath = self.file1.get()
@@ -186,8 +190,6 @@ def save_results(origin, terminated, ongoing, diverged, converged):
     global totallist
     totallist = [origin, terminated, ongoing, diverged, converged]
 
-d = digestion(root)
+d = digestion(root) 
 
 root.mainloop()
-
-print ("name retrieved was", D.name)
