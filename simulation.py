@@ -4,11 +4,11 @@ from replisome import *
 random.seed()
 
 class simulation:  
-    #length of track, number of replisomes, min speed, max speed, percentage time 1, percentage time 2, 
+    #length of track, number of replisomes, min speed, max speed, time 1, time 2, time frame to include starts
     #speed modifier for 1st label, speed modified for 2nd label
     
-    def __init__(self, length, n, mins, maxs, tone, ttwo, speed1, speed2):
-        self.time = 1000
+    def __init__(self, length, n, mins, maxs, tone, ttwo, tframe, speed1, speed2):
+        self.time = tframe
         self.current = 0
         self.type = 0
 

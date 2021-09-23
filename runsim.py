@@ -14,8 +14,21 @@ from simulation import *
 from parse import *
 
 record = []
-#length of total, number of replisomes, min speed, max speed, % of the time in label 1, % of time in label 2, label 1 speed(%), label 2 speed(%)
-sim = simulation(10000, 100, 5, 10, 100, 100, 1, 1)
+#length of total, number of replisomes, min speed, max speed, time in label 1, time in label 2, starting timeframe, label 1 speed(%), label 2 speed(%)
+
+length = int(input("Enter total tract length: "))
+n = int(input("Enter number of replisomes: "))
+mins = int(input("Enter minimum replisome speed: "))
+maxs = int(input("Enter maximum replisome speed: "))
+tone = int(input("Enter time in label 1: "))
+ttwo = int(input("Enter time in label 2: "))
+tframe = int(input("Enter initialization time frame: "))
+speed1 = int(input("Enter % speed modifier for label 1 (as a decimal): "))
+speed2 = int(input("Enter % speed modifier for label 2 (as a decimal): "))
+steps = int(input("Enter how long to run the simulation for (time): "))
+
+#1000, 100, 3, 7, 100, 100, 1000, 1, 1, 1000
+sim = simulation(length, n, mins, maxs, tone, ttwo, tframe, speed1, speed2)
 print("time = ", sim.time, 
       "current time = ",
       sim.current, 
@@ -28,7 +41,7 @@ print("time = ", sim.time,
       "time of return = ",
       sim.after)
 
-for i in range(1000):
+for i in range(steps):
     sim.step()
     record.append(sim.track.copy())
     #print(sim.track)
