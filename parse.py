@@ -29,7 +29,7 @@ def parse(set):
         elif (current != [] and temp[i] == 0): #if current string ended
             one, two, three = count(current)
             total = len(current)
-            print(one, two, three, total)
+            #print(one, two, three, total)
             
             if (one == []): #if >3 segment
                 doNothing = True
