@@ -39,13 +39,13 @@ def parse(set):
             elif (one[0] == 2 and two == []): #if only 2nd track segment (terminated)
                 terminated.append(total)
             elif (one[0] == 1 and two[0] == 2 and three == []): #if 1st and 2nd track segment (ongoing)
-                ongoing.append([total, one[1], two[1]])
+                ongoing.append([one[1], two[1], total])
             elif (one[0]== 2 and two[0]== 1 and three == []): #if 1 and 2nd tracks in other order (ongoing)
-                ongoing.append([total, two[1], one[1]])
+                ongoing.append([two[1], one[1], total])
             elif (one[0] == 1 and two[0] == 2 and three[0] == 1): #if 1 2 1 (converged)
-                converged.append([total, one[1], two[1], three[1]])
+                converged.append([one[1], two[1], three[1], total])
             elif (one[0] == 2 and two[0] == 1 and three[0] == 2): #if 2 1 2 (diverged)
-                diverged.append([total, one[1], two[1], three[1]])
+                diverged.append([one[1], two[1], three[1], total])
                 
             current = []
             

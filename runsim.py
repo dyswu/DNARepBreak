@@ -29,7 +29,10 @@ speed1 = int(input("Enter % speed modifier for label 1 (as a decimal): "))
 speed2 = int(input("Enter % speed modifier for label 2 (as a decimal): "))
 steps = int(input("Enter how long to run the simulation for (time): "))
 
-#1000, 100, 1, , 100, 100, 1000, 1, 1, 1000
+#Run first time and show results 
+
+#Sample parameters:
+#1, 1000, 100, 1, 5, 100, 100, 1000, 1, 1, 1000
 sim = simulation(length, n, mins, maxs, tone, ttwo, tframe, speed1, speed2)
 
 for i in range(steps):
@@ -53,6 +56,7 @@ ongoingdf = pd.DataFrame(ongoing)
 convergeddf = pd.DataFrame(converged)
 divergeddf = pd.DataFrame(diverged)
 
+#repeat runs
 for i in range(runs):
     sim = simulation(length, n, mins, maxs, tone, ttwo, tframe, speed1, speed2)
 
@@ -74,6 +78,7 @@ for i in range(runs):
     convergeddf = pd.concat([convergeddf, convergedtemp], ignore_index=True)
     divergeddf = pd.concat([divergeddf, divergedtemp], ignore_index=True)
     
+#plot sim data
 segmentdist(terminateddf, origindf, ongoingdf, convergeddf, divergeddf)
 
 segmentlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf)
@@ -83,3 +88,14 @@ segmentlen2(terminateddf, origindf, ongoingdf, convergeddf, divergeddf)
 firstlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf)
 
 secondlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf)
+
+#Format dataframe and save to csv
+terminateddf.insert(0, "Type", ["terminated"]*len(terminateddf))
+origindf.insert(0, "Type", ["origin"]*len(origindf))
+ongoingdf.insert(0, "Type", ["ongoing"]*len(ongoingdf))
+convergeddf.insert(0, "Type", ["converged"]*len(convergeddf))
+divergeddf.insert(0, "Type", ["diverged"]*len(divergeddf))
+
+total = pd.concat([terminateddf, origindf, ongoingdf, convergeddf, divergeddf], ignore_index=True)
+
+total.to_csv('simmaRTA.csv', index=False)

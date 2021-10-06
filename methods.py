@@ -89,15 +89,15 @@ def segmentlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf):
         plt.scatter(x=x, y=y, label = "Origin")
     
     if not (ongoingdf.empty):
-        x,y = ecdf(ongoingdf[0])
+        x,y = ecdf(ongoingdf[2])
         plt.scatter(x=x, y=y, label = "Ongoing")
     
     if not (convergeddf.empty):           
-        x,y = ecdf(convergeddf[0])
+        x,y = ecdf(convergeddf[3])
         plt.scatter(x=x, y=y, label = "Converged")
     
     if not (divergeddf.empty):
-        x,y = ecdf(divergeddf[0])
+        x,y = ecdf(divergeddf[3])
         plt.scatter(x=x, y=y, label = "Diverged")
     
     ax1.legend()
@@ -106,9 +106,30 @@ def segmentlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf):
     plt.title('Length distributions for each segment type')
     
 def segmentlen2(terminateddf, origindf, ongoingdf, convergeddf, divergeddf):
-    data = [terminateddf[0], origindf[0], ongoingdf[0], convergeddf[0], divergeddf[0]]
-    fig1, ax1 = plt.subplots()
+    
+    fig1, ax1 = plt.subplots()   
+    
+    data = []
+    labels = []
+
+    if not (terminateddf.empty):
+        data.append(terminateddf[0])
+        labels.append("Terminted")
+    if not (origindf.empty):
+        data.append(origindf[0])
+        labels.append("Origin")
+    if not(ongoingdf.empty):
+        data.append(ongoingdf[2])
+        labels.append("Ongoing")
+    if not (convergeddf.empty):
+        data.append(convergeddf[3])
+        labels.append("Converged")
+    if not (divergeddf.empty):
+        data.append(divergeddf[3])
+        labels.append("Diverged")
+    
     ax1.set_title("Length of each segment type")
+    ax1.set_xticklabels(labels)
     ax1.boxplot(data)
     
     plt.show()
@@ -121,22 +142,22 @@ def firstlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf):
         x,y = ecdf(origindf[0])
         plt.scatter(x=x, y=y, label = "Origin")
     if not (ongoingdf.empty):
-        x,y = ecdf(ongoingdf[1])
+        x,y = ecdf(ongoingdf[0])
         plt.scatter(x=x, y=y, label = "Ongoing")
     if not (convergeddf.empty):            
-        x,y = ecdf(convergeddf[1])
+        x,y = ecdf(convergeddf[0])
         plt.scatter(x=x, y=y, label = "Converged")
         
-        x,y = ecdf(convergeddf[3])
+        x,y = ecdf(convergeddf[2])
         plt.scatter(x=x, y=y, label = "Converged2")
     if not (divergeddf.empty):
-        x,y = ecdf(divergeddf[2])
+        x,y = ecdf(divergeddf[1])
         plt.scatter(x=x, y=y, label = "Diverged")
     
     ax1.legend()
     plt.xlabel('Length', fontsize=16)
     plt.ylabel('Cumulative probability', fontsize=16)
-    plt.title('Length distributions for each segment type')
+    plt.title('Length distributions for each first label type')
     
 def secondlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf):
 
@@ -146,22 +167,22 @@ def secondlen(terminateddf, origindf, ongoingdf, convergeddf, divergeddf):
         x,y = ecdf(terminateddf[0])
         plt.scatter(x=x, y=y, label = "Terminated")
     if not (ongoingdf.empty):
-        x,y = ecdf(ongoingdf[2])
+        x,y = ecdf(ongoingdf[1])
         plt.scatter(x=x, y=y, label = "Ongoing")
     if not (convergeddf.empty):            
-        x,y = ecdf(convergeddf[2])
+        x,y = ecdf(convergeddf[1])
         plt.scatter(x=x, y=y, label = "Converged")
     if not (divergeddf.empty):
-        x,y = ecdf(convergeddf[1])
+        x,y = ecdf(divergeddf[0])
         plt.scatter(x=x, y=y, label = "Diverged")
         
-        x,y = ecdf(divergeddf[3])
+        x,y = ecdf(divergeddf[2])
         plt.scatter(x=x, y=y, label = "Diverged2")
     
     ax1.legend()
     plt.xlabel('Length', fontsize=16)
     plt.ylabel('Cumulative probability', fontsize=16)
-    plt.title('Length distributions for each segment type')
+    plt.title('Length distributions for each second label type')
     
 def rename(data, patterns):
     order = ["origin", "terminated", "ongoing", "diverged", "converged"]
